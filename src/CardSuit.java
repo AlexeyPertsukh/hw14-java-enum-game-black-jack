@@ -7,9 +7,9 @@
 
 public enum CardSuit {
     //упрощенные символы мастей- для изображения на картинках карт, т.к. нормальные символы мастей сдвигают картинку
-    DIAMONDS("бубны", My.ANSI_RED,'♦','■' ),    //♦  ■
-    HEARTS("червы", My.ANSI_RED,'♥','▼' ),      //♥  ▼
-    SPADES("пики", My.ANSI_GREEN,'♠','▲'),      //♠  ▲
+    DIAMONDS("бубны", My.ANSI_RED,'♦','#' ),    //♦  ■
+    HEARTS("червы", My.ANSI_RED,'♥','v' ),      //♥  ▼
+    SPADES("пики", My.ANSI_GREEN,'♠','^'),      //♠  ▲
     CLUBS("крести", My.ANSI_GREEN, '♣','+');    //♣  *
 
     private final char pictureChar;

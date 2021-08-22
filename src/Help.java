@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class Help {
+    private final static String GIT_URL = "https://github.com/AlexeyPertsukh/hw14-java-enum-game-black-jack";
 
     private int numPage;
     private String color;
@@ -86,6 +87,8 @@ public class Help {
         System.out.println();
         My.setTextColor(Const.COLOR_HELP);
         My.printArr(HEADERS[numPage]);
+        System.out.println(GIT_URL);
+        System.out.println();
         My.resetTextColor();
     };
 

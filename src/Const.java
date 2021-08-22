@@ -1,7 +1,7 @@
 //основные константы
 public final class Const {
     public static final String NAME_GAME = "JAVA BLACKJACK";
-    public static final String VERSION = "1.10";
+    public static final String VERSION = "1.20";
     public static final String COPYRIGHT = "JAVA 01 \"ШАГ\", Запорожье 2021 ";
     public static final String AUTHOR = "Перцух Алексей";
 

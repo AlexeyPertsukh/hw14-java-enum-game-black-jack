@@ -7,3 +7,4 @@ Lesson theme:
 
 ![alt text](blackjack_rules_screenshot3.jpg)
 
+[27.03.21]

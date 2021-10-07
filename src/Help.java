@@ -167,17 +167,17 @@ public class Help {
             cmd = sc.next();
 
             //следующая страница
-            if(My.cmpStr(cmd, cmdPageNext.getKey())) {
+            if(cmd.equalsIgnoreCase(cmdPageNext.getKey())) {
                 nextPage();
                 System.out.println();
             }
             //предыдущая страница
-            else if(My.cmpStr(cmd, cmdPagePrev.getKey())) {
+            else if(cmd.equalsIgnoreCase(cmdPagePrev.getKey())) {
                 prevPage();
                 System.out.println();
             }
             //вернуться в игру
-            else if(My.cmpStr(cmd, cmdReturnToGame.getKey())) {
+            else if(cmd.equalsIgnoreCase(cmdReturnToGame.getKey())) {
                 end = true;
                 System.out.println();
             }

@@ -394,7 +394,7 @@ public class Game {
 
         //пауза
         command = cmdPause;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             pauseSwitch();
             return true;
         }
@@ -402,21 +402,21 @@ public class Game {
 
         //хелп
         command = cmdHelp;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             help.show();
             return true;
         }
 
         //взять карту
         command = cmdTakeCard;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             takeCards(focusPlayer, 1);
             return true;
         }
 
         //сдаться
         command = cmdSurrender;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             surrender(focusPlayer);
             return true;
         }
@@ -424,42 +424,42 @@ public class Game {
 
         //пас
         command = cmdPass;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             nextFocus();
             return true;
         }
 
         //досрочно взять выигрыш при блекджеке
         command = cmdTakeWin;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             takeWinBlackJack(focusPlayer);
             return true;
         }
 
         //переименовать игрока
         command = cmdRenamePlayer;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             renamePlayer(focusPlayer);
             return true;
         }
 
         //выйти из игры
         command = cmdGameOver;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             gameOver = true;
             return true;
         }
 
         //открыть скрытую карту дилера
         command = cmdDealerOpenCard;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive() && focusPlayer == dealer) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive() && focusPlayer == dealer) {
             openCardDealer();
             return true;
         }
 
         // установить дилеру скрытый блекджек
         command = cmdDealerHiddenBlackJack;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             dealerHiddenBlackJack();
             return true;
         }
@@ -467,21 +467,21 @@ public class Game {
 
         //распечатать все номиналы карт
         command = cmdPrintAllCards;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             printAllCards();
             return true;
         }
 
         //чит: распечатать все карты в шузе
         command = cmdPrintShoe;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             printShoe();
             return true;
         }
 
         //чит: распечатать все карты в шузе
         command = cmdShowDealerPoint;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             My.printlnColor("очки дилера: " + dealer.getPoint(), Const.COLOR_HELP);
             return true;
         }
@@ -489,7 +489,7 @@ public class Game {
 
                 //чит: удалить карту у игрока
         command = cmdCardDel;
-        if(My.cmpStr(strCommand, command.getKey()) && command.isActive()) {
+        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             delCard(focusPlayer);
             return true;
         }
@@ -888,13 +888,13 @@ public class Game {
         }
 
         String str = My.getStrCmd(cmd, Const.CMD_CHEAT_CARD_ADD);
-        if(My.isClearStr(str)) {        //если вернулась пустая строка- то cmd не является нужной нам командой, выходим
+        if(str.isEmpty()) {        //если вернулась пустая строка- то cmd не является нужной нам командой, выходим
             return false;
         }
 
         for (CardRating cardRating: CardRating.values()) {
             String shortName = cardRating.getShortName();
-            if(My.cmpStr(shortName, str)) {
+            if(shortName.equals(str)) {
                 CardSuit[] arrSuit = CardSuit.values();
                 CardSuit cardSuit = arrSuit[My.random(arrSuit.length)];     //случайная масть
 

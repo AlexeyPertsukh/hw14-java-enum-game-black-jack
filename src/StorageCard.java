@@ -92,7 +92,7 @@ public class StorageCard {
                 int num = i + (j * row) ;
 
                 String info = getCardInfoColor(num);
-                if(!My.cmpStr(info, "")) {
+                if(!info.isEmpty()) {
                     info = String.format("%d.", num + 1);
                     info = String.format("%s %-10s", info, getCardInfoColor(num));
                     info = String.format("%-30s", info);

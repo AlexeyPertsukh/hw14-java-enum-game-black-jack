@@ -176,14 +176,6 @@ public class My {
         return random(0, max);
     }
 
-    public static boolean cmpStr(String str1, String str2) {
-        return (str1.compareToIgnoreCase(str2) == 0);
-    }
-
-    public static boolean isClearStr(String str) {
-        return cmpStr(str, "");
-    }
-
     //возвращает заданное количество пробелов
     public static String getStrSpaces(int num) {
         if(num <= 0 ) {
@@ -310,7 +302,7 @@ public class My {
         if(str.length() > keyLength){
             String key = str.substring(0, keyLength);
 
-            if(My.cmpStr(key, keyStr)){
+            if(key.equals(keyStr)){
                 return str.substring(keyLength);
             }
         }
@@ -324,7 +316,7 @@ public class My {
             System.out.print(text);
             String cmd = sc.nextLine();
 
-            if(My.isClearStr(cmd) && defaultvalue != Integer.MIN_VALUE) {
+            if(cmd.isEmpty() && defaultvalue != Integer.MIN_VALUE) {
                 System.out.println(defaultvalue);
                 return defaultvalue;
             }

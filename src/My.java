@@ -281,7 +281,7 @@ public class My {
                 if (cntColor >= colors.length) {
                     cntColor = 0;
                 }
-                line += color + str.substring(start, end) + My.ANSI_RESET;
+                line += color + str.substring(start, end) + ANSI_RESET;
             }
             System.out.println(line);
         }
@@ -310,18 +310,18 @@ public class My {
     }
 
     //ввод цифры
-    public static int nextInt(String text, int min, int max, int defaultvalue){
+    public static int nextInt(String text, int min, int max, int defaultValue){
         while(true) {
             Scanner sc = new Scanner(System.in);
             System.out.print(text);
             String cmd = sc.nextLine();
 
-            if(cmd.isEmpty() && defaultvalue != Integer.MIN_VALUE) {
-                System.out.println(defaultvalue);
-                return defaultvalue;
+            if(cmd.isEmpty() && defaultValue != Integer.MIN_VALUE) {
+                System.out.println(defaultValue);
+                return defaultValue;
             }
 
-            if(My.isInteger(cmd)) {
+            if(isInteger(cmd)) {
                 int num = Integer.parseInt(cmd);
                 if(num >= min && num <= max) {
                     return num;
@@ -337,7 +337,7 @@ public class My {
             System.out.print(text);
             String cmd = sc.next();
 
-            if(My.isInteger(cmd)) {
+            if(isInteger(cmd)) {
                 int num = Integer.parseInt(cmd);
                 if(num >= min && num <= max) {
                     return num;

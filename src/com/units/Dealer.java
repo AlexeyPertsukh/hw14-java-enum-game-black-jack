@@ -1,3 +1,9 @@
+package com.units;
+
+import com.game.Command;
+import com.game.Const;
+import com.game.Color;
+
 import java.util.Scanner;
 
 public class Dealer extends Bot{
@@ -28,7 +34,7 @@ public class Dealer extends Bot{
             tell = Const.TELL_PASS;
         }
 
-        My.printlnColor(tell, Const.COLOR_HELP);
+        Color.printlnColor(tell, Const.COLOR_HELP);
         return cmd;
     }
 

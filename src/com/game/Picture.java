@@ -1,3 +1,4 @@
+package com.game;
 /*
 псевдографика
 https://clck.ru/LS5nk
@@ -230,35 +231,14 @@ public class Picture {
     }
 
     public static void printAllCardPic() {
-        My.printArr(CARDS[0], CARDS[1], CARDS[2], CARDS[3], CARDS[4]);
-        My.printArr(CARDS[5], CARDS[6], CARDS[7], CARDS[8], CARDS[9]);
-        My.printArr(CARDS[10], CARDS[11], CARDS[12], CARDS[13]);
+        Util.printArr(CARDS[0], CARDS[1], CARDS[2], CARDS[3], CARDS[4]);
+        Util.printArr(CARDS[5], CARDS[6], CARDS[7], CARDS[8], CARDS[9]);
+        Util.printArr(CARDS[10], CARDS[11], CARDS[12], CARDS[13]);
     }
 
     //маленький логотип игры
     public static void printSmallGameLogo() {
-        My.printArrColor(CARD_LOGO, 9, My.ANSI_YELLOW, My.ANSI_RED);
-    }
-
-
-    //большой логотип игры
-    public static void printBigGameLogo() {
-        String[][] arr = new String[][]{QUEEN.clone(), TWO.clone(), ACE.clone(), SEVEN.clone(), KING.clone(),
-                                        TEEN.clone(), JACK.clone(), FIVE.clone(), QUEEN.clone(),
-                                        };
-        char[] newChars = {'*','+', '•', '#','•','*','+','•','#'};
-        String text = "BLACKJACK";
-
-        for (int i = 0; i < arr.length; i++) {
-            String str1 = String.format("|%c %c        |", CHANGE_CHAR, text.charAt(i));
-            String str2 = String.format("|        %c %c|", text.charAt(i), CHANGE_CHAR);
-            arr[i][1] = str1;
-            arr[i][9] = str2;
-            My.changeCharInArr(arr[i], CHANGE_CHAR, newChars[i]);
-        }
-
-        String[] logo = My.unityArr(arr);
-        My.printArrColor(logo, 16, My.ANSI_YELLOW, My.ANSI_PURPLE);
+        Util.printArrColor(CARD_LOGO, 9, Color.ANSI_YELLOW, Color.ANSI_RED);
     }
 
 }

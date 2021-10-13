@@ -1,3 +1,7 @@
+package com.units;
+import com.card.Card;
+import com.game.StorageCard;
+
 import java.util.Scanner;
 
 public class Player {
@@ -179,8 +183,7 @@ public class Player {
     }
 
     public String nextBet(Scanner sc) {
-        String str = sc.next();
-        return str;
+        return sc.next();
     }
 
     public boolean isLoose() {

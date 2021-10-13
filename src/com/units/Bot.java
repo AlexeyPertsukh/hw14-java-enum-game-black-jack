@@ -1,3 +1,8 @@
+package com.units;
+
+import com.game.Command;
+import com.game.Const;
+
 import java.util.Scanner;
 
 public class Bot extends Player {

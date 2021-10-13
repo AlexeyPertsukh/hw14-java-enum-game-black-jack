@@ -4,16 +4,25 @@ https://clck.ru/TptCy
 
 https://durbetsel.ru/2_blackjack_klassichesky.htm
 */
+package com.game;
+
+import com.card.Card;
+import com.card.CardRating;
+import com.card.CardSuit;
+import com.help.Help;
+import com.units.Bot;
+import com.units.Dealer;
+import com.units.Player;
 
 import java.util.Scanner;
 
 public class Game {
 
-    private Help help;
+    private final Help help;
     private Player[] players;
     private Dealer dealer;
     private Player focusPlayer;
-    private StepGame step;
+    private final StepGame step;
 
     //команды
     public Command cmdHelp;
@@ -37,11 +46,9 @@ public class Game {
     private String strCommand;
     private int numDeckShoe;        //колоды карт в шузе
 
-
-
     private StorageCard shoe;   //шуз- одна или несколько колод карт в игре
 
-    private Scanner sc;
+    private final Scanner sc;
 
     public Game() {
         help = new Help();
@@ -69,8 +76,6 @@ public class Game {
 
     //======================= ОСНОВНОЙ МЕТОД ===========================================================================
     public void go() {
-        String cmd;
-
         printOnStart();
         initPlayers();      //игроки
         inputConfigShoe();  //колоды карт в шузе
@@ -161,16 +166,6 @@ public class Game {
         }
     }
 
-    //проверяем на проигрыш и выигрыш
-    private void checkResult(){
-
-
-        //если нужно проверять дилера- значит все взяли карты и можно проверить всех и на проигрыши и на выигрыши
-        if(dealer.needCheck()) {
-            checkGameStatus();
-        }
-    }
-
     //
     private void gameSteps() {
         //шаг 0 - старт
@@ -202,7 +197,7 @@ public class Game {
 
     //будем продолжать игру?
     private boolean againGame() {
-        char ch = My.nextCharLowerCase("Продолжить игру? (Y - да, N - нет): " , 'y', 'n');
+        char ch = Util.nextCharLowerCase("Продолжить игру? (Y - да, N - нет): " , 'y', 'n');
         if(ch == 'y') {
             return true;
         }
@@ -241,7 +236,7 @@ public class Game {
 
     private void printOnEnd() {
         System.out.println();
-        My.printlnColor("The robot Bender casino says goodbye to you", My.ANSI_PURPLE);
+        Color.printlnColor("The robot Bender casino says goodbye to you", Color.ANSI_PURPLE);
         System.out.println();
         System.out.println(Const.COPYRIGHT);
         System.out.println(Const.AUTHOR);
@@ -257,11 +252,11 @@ public class Game {
             }
         }
         
-        My.setTextColor(Const.COLOR_HEADER);
+        Color.setTextColor(Const.COLOR_HEADER);
         System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
         System.out.println(textLine);
         System.out.println("-------------------------------------------------------------------------------------------------------------------------------------------------------");
-        My.resetTextColor();
+        Color.resetTextColor();
         printStateGame();
     }
 
@@ -269,10 +264,10 @@ public class Game {
     //инициализация игроков
     private void initPlayers() {
         String text = String.format("Количество игроков (%d-%d, %d по умолчанию): ", Const.PLAYERS_MIN, Const.PLAYERS_MAX, Const.DEF_PLAYERS);
-        int numPlayers = My.nextInt(text, Const.PLAYERS_MIN, Const.PLAYERS_MAX, Const.DEF_PLAYERS);
+        int numPlayers = Util.nextInt(text, Const.PLAYERS_MIN, Const.PLAYERS_MAX, Const.DEF_PLAYERS);
 
         text = String.format("Количество ботов (%d-%d, %d по умолчанию): ", Const.BOOTS_MIN, Const.BOOTS_MAX, Const.DEF_BOOTS);
-        int numBots = My.nextInt(text, Const.BOOTS_MIN, Const.BOOTS_MAX, Const.DEF_BOOTS);
+        int numBots = Util.nextInt(text, Const.BOOTS_MIN, Const.BOOTS_MAX, Const.DEF_BOOTS);
 
         players = new Player[numPlayers + numBots + 1];
         for (int i = 0; i < players.length - 1; i++) {
@@ -310,7 +305,7 @@ public class Game {
 
     private void inputConfigShoe() {
         String textShoe = String.format("Количество колод карт в шузе (%d-%d, %d по умолчанию): ", Const.SHOE_DECK_MIN, Const.SHOE_DECK_MAX, Const.DEF_SHOE);
-        numDeckShoe = My.nextInt(textShoe, Const.SHOE_DECK_MIN, Const.SHOE_DECK_MAX, Const.DEF_SHOE);
+        numDeckShoe = Util.nextInt(textShoe, Const.SHOE_DECK_MIN, Const.SHOE_DECK_MAX, Const.DEF_SHOE);
     }
 
 
@@ -368,7 +363,7 @@ public class Game {
 
         //если это бот - рисуем паузу
         if(focusPlayer instanceof Bot) {
-            My.sleepAnimationLn(Const.PAUSE , pauseState);
+            Util.sleepAnimationLn(Const.PAUSE , pauseState);
         }
     }
 
@@ -383,7 +378,7 @@ public class Game {
 
         //если ввод ставок
         if(step.isInputBet()) {
-            if(My.isDouble(strCommand)) {
+            if(Util.isDouble(strCommand)) {
                 inputBet(focusPlayer, strCommand);
                 return true;
             }
@@ -482,7 +477,7 @@ public class Game {
         //чит: распечатать все карты в шузе
         command = cmdShowDealerPoint;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
-            My.printlnColor("очки дилера: " + dealer.getPoint(), Const.COLOR_HELP);
+            Color.printlnColor("очки дилера: " + dealer.getPoint(), Const.COLOR_HELP);
             return true;
         }
 
@@ -494,7 +489,7 @@ public class Game {
             return true;
         }
         //если дошли сюда- команда не введена или введена с ошибкой, повторяем ввод
-        My.printlnColor("неправильная команда, повторите еще раз", Const.COLOR_HELP);
+        Color.printlnColor("неправильная команда, повторите еще раз", Const.COLOR_HELP);
         return false;
     }
 
@@ -518,7 +513,7 @@ public class Game {
     //распечатать карты всех номиналов
     private void printAllCards() {
 
-        My.printlnColor("Карты всех номиналов:", Const.COLOR_HELP);
+        Color.printlnColor("Карты всех номиналов:", Const.COLOR_HELP);
 //        System.out.println("------------");
         Picture.printAllCardPic();
     }
@@ -526,27 +521,25 @@ public class Game {
     //игрок сдался
     private void surrender(Player player) {
         if(player.getCardLength()!= 2) {
-            My.printlnColor("Сдаться могут только игроки с двумя картами на руках. А вы нет.", Const.COLOR_HELP);
-            My.sleepAnimationLn(Const.PAUSE , pauseState);
+            Color.printlnColor("Сдаться могут только игроки с двумя картами на руках. А вы нет.", Const.COLOR_HELP);
+            Util.sleepAnimationLn(Const.PAUSE , pauseState);
             return;
         }
         player.surrender();
-        My.printlnColor(player.getName() + " сдался", Const.COLOR_HELP);
-        My.sleepAnimationLn(Const.PAUSE, pauseState);
+        Color.printlnColor(player.getName() + " сдался", Const.COLOR_HELP);
+        Util.sleepAnimationLn(Const.PAUSE, pauseState);
         nextFocus();
     }
 
     //первоначальная раздача карт
     public void takeCardFirst() {
-        My.printlnColor("Дилер сдает карты", Const.COLOR_HELP);
-        My.sleepAnimationLn(Const.PAUSE, pauseState);
-        for (int i = 0; i < players.length; i++) {
-            Player player = players[i];
-            if(player == dealer)   //дилеру раздаем 2 карты: открытую и закрытую
+        Color.printlnColor("Дилер сдает карты", Const.COLOR_HELP);
+        Util.sleepAnimationLn(Const.PAUSE, pauseState);
+        for (Player player : players) {
+            if (player == dealer)   //дилеру раздаем 2 карты: открытую и закрытую
             {
                 takeCards(player, 2, Card.OPEN, Card.HIDDEN);
-            }
-            else {
+            } else {
                 takeCards(player, 2);       //игрокам даем две открытые карты
             }
         }
@@ -578,9 +571,9 @@ public class Game {
         }
 
         System.out.printf("%s получил карты:\n", player.getName());
-        My.printArr(pics);      // печатаем красивые картинки с картами
+        Util.printArr(pics);      // печатаем красивые картинки с картами
 
-        My.sleepAnimationLn((int)(Const.PAUSE * 1.5), pauseState);
+        Util.sleepAnimationLn((int)(Const.PAUSE * 1.5), pauseState);
 
     }
 
@@ -590,11 +583,11 @@ public class Game {
             return;
         }
 
-        My.printlnColor("Дилер открывает скрытую карту", Const.COLOR_HELP);
+        Color.printlnColor("Дилер открывает скрытую карту", Const.COLOR_HELP);
         Card card = dealer.getHiddenCard();
         card.setStateOpen(true);
-        My.printArr(card.getColorPictureCard());
-        My.sleepAnimationLn(Const.PAUSE, pauseState);
+        Util.printArr(card.getColorPictureCard());
+        Util.sleepAnimationLn(Const.PAUSE, pauseState);
 
     }
 
@@ -614,32 +607,32 @@ public class Game {
 
     //подчеркивание
     public void printStateGameUnderline(String strUnderline) {
-        String text = "";
+        String text;
         String[] str = new String[players.length];
         text = "";
         for (int i = 0; i < players.length; i++) {
             str[i] = strUnderline;
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
     }
 
     //имена
     public void printStateGameNames() {
-        String text = "";
+        String text;
         String[] str = new String[players.length];
         text = "";
         for (int i = 0; i < players.length; i++) {
             str[i] = players[i].getName() + " " + players[i].getTextGameState();
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
     }
@@ -648,7 +641,7 @@ public class Game {
     public void printStateGameCards() {
         //карты на руках
         int max = 1;
-        String text = "";
+        String text;
         String[] str = new String[players.length];
 
         for (Player tmp : players) {
@@ -665,7 +658,7 @@ public class Game {
                     str[i] = "нет карт";
                 }
                 str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-                text += My.formatedStrInvisChar(str[i]);
+                text += Util.formatedStrInvisChar(str[i]);
             }
             System.out.println(text);
         }
@@ -679,10 +672,10 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
                 str[i] = "Очки:  " + players[i].getPointStr();
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
 //        System.out.println();
@@ -703,10 +696,10 @@ public class Game {
             }
 
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
     }
@@ -724,10 +717,10 @@ public class Game {
             }
 
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
     }
@@ -745,10 +738,10 @@ public class Game {
             }
 
             if(players[i] == focusPlayer) {
-                str[i] = Const.COLOR_FOCUS + str[i] + My.ANSI_RESET;
+                str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += My.formatedStrInvisChar(str[i]);
+            text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
     }
@@ -758,11 +751,11 @@ public class Game {
 
         double bet = Double.parseDouble(strBet);
         if(bet > player.getMoney()) {
-            My.printlnColor("у вас нет столько денег, попробуйте еще раз", Const.COLOR_HELP);
+            Color.printlnColor("у вас нет столько денег, попробуйте еще раз", Const.COLOR_HELP);
             return false;
         }
         if(bet < 1) {
-            My.printlnColor("вы не можете поставить такую ставку, попробуйте еще раз", Const.COLOR_HELP);
+            Color.printlnColor("вы не можете поставить такую ставку, попробуйте еще раз", Const.COLOR_HELP);
             return false;
         }
 
@@ -776,12 +769,8 @@ public class Game {
     public void pauseSwitch() {
         pauseState = !pauseState;
         String str = (pauseState) ? "пауза включена" : "пауза отключена";
-        My.printlnColor(str, Const.COLOR_HELP);
+        Color.printlnColor(str, Const.COLOR_HELP);
 
-    }
-
-    public boolean isPauseState() {
-        return pauseState;
     }
 
     //проверка игроков: проигравшие
@@ -856,20 +845,7 @@ public class Game {
         }
     }
 
-
-    //есть игроки(кроме дилера) в игре?
-    private boolean playersInGame() {
-        for (Player player : players) {
-            if(player != dealer && player.isInGame()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
     //======== ЧИТ КОДЫ
-
     //чит-команда: удалить карту
     private void delCard(Player player) {
         if (player == null) {
@@ -877,7 +853,7 @@ public class Game {
         }
 
         if(player.delCard()) {
-            My.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
+            Color.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
         }
     }
 
@@ -887,7 +863,7 @@ public class Game {
             return false;
         }
 
-        String str = My.getStrCmd(cmd, Const.CMD_CHEAT_CARD_ADD);
+        String str = Util.getStrCmd(cmd, Const.CMD_CHEAT_CARD_ADD);
         if(str.isEmpty()) {        //если вернулась пустая строка- то cmd не является нужной нам командой, выходим
             return false;
         }
@@ -896,11 +872,11 @@ public class Game {
             String shortName = cardRating.getShortName();
             if(shortName.equals(str)) {
                 CardSuit[] arrSuit = CardSuit.values();
-                CardSuit cardSuit = arrSuit[My.random(arrSuit.length)];     //случайная масть
+                CardSuit cardSuit = arrSuit[Util.random(arrSuit.length)];     //случайная масть
 
                 player.addCard(new Card(cardRating, cardSuit));
 
-                My.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
+                Color.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
 
                 return true;
             }
@@ -981,7 +957,7 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             if(players[i].getMoney() < 1 && players[i] != dealer)
             {
-                My.printlnColor("💀 " + players[i].getName() + " проиграл все деньги и покидает казино", Const.COLOR_ALARM);
+                Color.printlnColor("💀 " + players[i].getName() + " проиграл все деньги и покидает казино", Const.COLOR_ALARM);
                 delPlayer(players[i]);
                 i--;
             }
@@ -1029,13 +1005,13 @@ public class Game {
     //взять выигрыш - только есть у игрока блекджек, а у дилера закрыта карта, но может быть блекджек
     private void takeWinBlackJack(Player player) {
         if(!player.isBlackJack()) {
-            My.printlnColor(player.getName() + ", досрочно выигрыш могут взять только игроки с блэкджеком. А вы нет. ", Const.COLOR_HELP);
-            My.sleepAnimationLn(Const.PAUSE * 2, pauseState);
+            Color.printlnColor(player.getName() + ", досрочно выигрыш могут взять только игроки с блэкджеком. А вы нет. ", Const.COLOR_HELP);
+            Util.sleepAnimationLn(Const.PAUSE * 2, pauseState);
             return;
         }
-        My.printlnColor(player.getName() + ", у вас блэкджек и вы досрочно взяли выигрыш с коефициентом 1:1", Const.COLOR_HELP);
+        Color.printlnColor(player.getName() + ", у вас блэкджек и вы досрочно взяли выигрыш с коефициентом 1:1", Const.COLOR_HELP);
         player.gameWin(Const.BASIC_COEF_WIN);
-        My.sleepAnimationLn(Const.PAUSE * 2, pauseState);
+        Util.sleepAnimationLn(Const.PAUSE * 2, pauseState);
     }
 
     //установить дилеру скрытый блекджек
@@ -1048,8 +1024,8 @@ public class Game {
         card = new Card(CardRating.JACK, CardSuit.CLUBS, Card.HIDDEN);
         dealer.addCard(card);
 
-        My.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
-        My.sleepAnimationLn(Const.PAUSE, pauseState);
+        Color.printlnColor(Const.STR_CHEAT_OK, Const.COLOR_HELP);
+        Util.sleepAnimationLn(Const.PAUSE, pauseState);
     }
 
 }

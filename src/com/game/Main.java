@@ -7,6 +7,7 @@
 JAVA A01 "ШАГ", Запорожье 2021
 Перцух Алексей
  */
+package com.game;
 
 public class Main {
 

@@ -1,3 +1,9 @@
+package com.game;
+
+import com.card.Card;
+import com.card.CardRating;
+import com.card.CardSuit;
+
 public class StorageCard {
 
     private static final int NUM_COLUMN = 6;
@@ -10,10 +16,7 @@ public class StorageCard {
 
     public void add(Card card) {
         Card[] tmp = new Card[cards.length + 1];
-        for (int i = 0; i < cards.length; i++) {
-            tmp[i] = cards[i];
-        }
-//        card.setVisible(visible);
+        System.arraycopy(cards, 0, tmp, 0, cards.length);
         tmp[cards.length] = card;
         cards = tmp;
     }
@@ -21,8 +24,8 @@ public class StorageCard {
     public void addRandom() {
         CardRating[] ratings = CardRating.values();
         CardSuit[] suits = CardSuit.values();
-        int nRating = My.random(ratings.length);
-        int nSuit = My.random(suits.length);
+        int nRating = Util.random(ratings.length);
+        int nSuit = Util.random(suits.length);
 
         add(new Card(ratings[nRating], suits[nSuit], Card.OPEN));
     }
@@ -46,15 +49,14 @@ public class StorageCard {
     //добавить полную колоду карт
     void addFullDeck(boolean isOpen) {
         CardRating[] ratings = CardRating.values();
-
-       for (CardRating rating : CardRating.values()) {
+        for (CardRating rating : ratings) {
             for (CardSuit suit : CardSuit.values()) {
                 add(new Card(rating, suit, isOpen));
             }
         }
     }
 
-    void clear(){
+    public void clear(){
         cards = new Card[0];
     }
 
@@ -71,7 +73,7 @@ public class StorageCard {
 
 
     //распечатать все карты
-    void print() {
+    public void print() {
         int row = cards.length;
 
         if(cards.length > 15) {
@@ -137,7 +139,7 @@ public class StorageCard {
     }
 
     public String getPointStr() {
-        String str ="";
+        String str;
         if(isCardsOpen()) {
             str = Integer.toString(getPoint());
         }
@@ -184,13 +186,12 @@ public class StorageCard {
 
     //блэкджек: 21 и только две карты
     public boolean isBlackJack() {
-
         if((getPoint() == 21) && (getCardsLength() == 2))
         {
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 
 

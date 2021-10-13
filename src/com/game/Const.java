@@ -1,15 +1,16 @@
+package com.game;
 //основные константы
 public final class Const {
     public static final String NAME_GAME = "JAVA BLACKJACK";
-    public static final String VERSION = "1.20";
+    public static final String VERSION = "2.01";
     public static final String COPYRIGHT = "JAVA 01 \"ШАГ\", Запорожье 2021 ";
     public static final String AUTHOR = "Перцух Алексей";
 
     //основные цвета в программе
-    public static final String COLOR_HEADER = My.ANSI_BLUE;
-    public static final String COLOR_HELP = My.ANSI_BLUE;
-    public static final String COLOR_FOCUS = My.ANSI_YELLOW;
-    public static final String COLOR_ALARM = My.ANSI_RED;
+    public static final String COLOR_HEADER = Color.ANSI_BLUE;
+    public static final String COLOR_HELP = Color.ANSI_BLUE;
+    public static final String COLOR_FOCUS = Color.ANSI_YELLOW;
+    public static final String COLOR_ALARM = Color.ANSI_RED;
 
 
     //коеф. выигрышей

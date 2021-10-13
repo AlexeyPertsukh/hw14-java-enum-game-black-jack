@@ -1,3 +1,4 @@
+package com.game;
 //шаг в программе
 //разные шаги - разное действие
 public class StepGame {

@@ -1,3 +1,5 @@
+package com.help;
+
 /*
 Термины блэкджек
 https://clck.ru/TtMe4
@@ -9,6 +11,11 @@ https://clck.ru/TtMe4
 https://pythonru.com/primery/igraem-v-bljekdzhek-na-python
  */
 
+import com.game.Command;
+import com.game.Const;
+import com.game.Color;
+import com.game.Util;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
@@ -17,14 +24,13 @@ public class Help {
     private final static String GIT_URL = "https://github.com/AlexeyPertsukh/hw14-java-enum-game-black-jack";
 
     private int numPage;
-    private String color;
     boolean end;
 
     private final Command cmdPagePrev;
     private final Command cmdPageNext;
     private final Command cmdReturnToGame;
 
-    private final static String FILENAME = "\\src\\BlackjackRules.txt";
+    private final static String FILENAME = "\\src\\com\\help\\BlackjackRules.txt";
 
     private final static String[] HEADER1 = {
             "              ┌--------------------------------------------------------------------------",
@@ -85,26 +91,26 @@ public class Help {
 
     private void printFooter() {
         System.out.println();
-        My.setTextColor(Const.COLOR_HELP);
-        My.printArr(HEADERS[numPage]);
+        Color.setTextColor(Const.COLOR_HELP);
+        Util.printArr(HEADERS[numPage]);
         System.out.println(GIT_URL);
         System.out.println();
-        My.resetTextColor();
+        Color.resetTextColor();
     };
 
     private  void printHeader() {
-        My.setTextColor(Const.COLOR_HELP);
+        Color.setTextColor(Const.COLOR_HELP);
         System.out.println("-------------------------------------------------------------------------------------------");
-        My.resetTextColor();
+        Color.resetTextColor();
     };
 
     public void printPage() {
-        My.setTextColor(Const.COLOR_HELP);
-        My.printArr(PAGES[numPage]);
+        Color.setTextColor(Const.COLOR_HELP);
+        Util.printArr(PAGES[numPage]);
         if(numPage == 1) {
             printFromFile(FILENAME);
         }
-        My.resetTextColor();
+        Color.resetTextColor();
     }
 
 

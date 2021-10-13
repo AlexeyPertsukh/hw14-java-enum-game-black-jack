@@ -1,3 +1,5 @@
+package com.game;
+
 public enum Command {
     HELP("помощь", "?"),
     TAKE_CARD("взять карту","@"),
@@ -22,8 +24,8 @@ public enum Command {
     CHEAT_DEALER_HIDDEN_BLACK_JACK("установить дилеру 2 карты: открытую и закрытую, которые дают блэкджек", "DHIDBJ", false),
     ;
 
-    private String name;
-    private String key;
+    private final String name;
+    private final String key;
     private boolean isActive;
     private boolean isVisible;
 

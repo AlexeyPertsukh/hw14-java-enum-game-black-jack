@@ -1,3 +1,8 @@
+package com.card;
+
+import com.game.Picture;
+import com.game.Util;
+
 public enum CardRating {
     TWO("2", 2, Picture.TWO),
     THREE("3", 3, Picture.THREE),
@@ -13,8 +18,8 @@ public enum CardRating {
     KING("Король", 10, Picture.KING),
     ACE("Туз", 11, Picture.ACE);
 
-    private String nameRus;
-    private int point;
+    private final String nameRus;
+    private final int point;
     private final String[] picture;
 
     CardRating(String nameRus, int point, String[] picture){
@@ -37,7 +42,7 @@ public enum CardRating {
 
     //короткое имя номинала- цифра(для карт 2... 10), либо первая буква (J ... A)
     public String getShortName() {
-        if(My.isInteger(nameRus)) {
+        if(Util.isInteger(nameRus)) {
             return nameRus;
         }
 

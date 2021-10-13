@@ -1,3 +1,5 @@
+package com.card;
+
 /*
 ♦ ♢
 ♥ ♡
@@ -5,12 +7,14 @@
 ♣ ♧
 */
 
+import com.game.Color;
+
 public enum CardSuit {
     //упрощенные символы мастей- для изображения на картинках карт, т.к. нормальные символы мастей сдвигают картинку
-    DIAMONDS("бубны", My.ANSI_RED,'♦','#' ),    //♦  ■
-    HEARTS("червы", My.ANSI_RED,'♥','v' ),      //♥  ▼
-    SPADES("пики", My.ANSI_GREEN,'♠','^'),      //♠  ▲
-    CLUBS("крести", My.ANSI_GREEN, '♣','+');    //♣  *
+    DIAMONDS("бубны", Color.ANSI_RED,'♦','#' ),    //♦  ■
+    HEARTS("червы", Color.ANSI_RED,'♥','v' ),      //♥  ▼
+    SPADES("пики", Color.ANSI_GREEN,'♠','^'),      //♠  ▲
+    CLUBS("крести", Color.ANSI_GREEN, '♣','+');    //♣  *
 
     private final char pictureChar;
     private final char primitivePictureChar;

@@ -8,13 +8,13 @@ public class StepGame {
         INPUT_BET,              //ввод ставок
         FIRST_DISTRIB_CARDS,    //начальная раздача карт
         GAME,                   //игра
-        END;                    //конец игры
-    };
+        END,
+        ;                    //конец игры
+    }
 
     private int cntStep;
 
     public StepGame() {
-
     }
 
     public void reset(){

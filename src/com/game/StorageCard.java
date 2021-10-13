@@ -183,17 +183,10 @@ public class StorageCard {
         return null;
     }
 
-
     //блэкджек: 21 и только две карты
     public boolean isBlackJack() {
-        if((getPoint() == 21) && (getCardsLength() == 2))
-        {
-            return true;
-        } else {
-            return false;
-        }
+        return (getPoint() == 21) && (getCardsLength() == 2);
     }
-
 
     //количество очков в открытых картах
     public int getPointOpenCard() {
@@ -205,8 +198,6 @@ public class StorageCard {
         }
         return point;
     }
-
-
 
 }
 

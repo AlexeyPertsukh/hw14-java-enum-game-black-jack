@@ -198,13 +198,7 @@ public class Game {
     //будем продолжать игру?
     private boolean againGame() {
         char ch = Util.nextCharLowerCase("Продолжить игру? (Y - да, N - нет): " , 'y', 'n');
-        if(ch == 'y') {
-            return true;
-        }
-        else {
-         return false;
-        }
-
+        return ch == 'y';
     }
 
 
@@ -308,9 +302,6 @@ public class Game {
         numDeckShoe = Util.nextInt(textShoe, Const.SHOE_DECK_MIN, Const.SHOE_DECK_MAX, Const.DEF_SHOE);
     }
 
-
-
-
     //фокус на игрока
     private void setFocus(int num) {
         focusPlayer = players[num];
@@ -323,7 +314,6 @@ public class Game {
                 break;
             }
         }
-
     }
 
     //фокус на следующего игрока по порядку
@@ -336,7 +326,6 @@ public class Game {
                 break;
             }
         }
-
         do
         {
             num++;
@@ -344,11 +333,8 @@ public class Game {
                 num = 0;
             }
         } while(!players[num].isInGame());
-
         setFocus(num);
-
     }
-
 
     //ввод команд
     private void inputCommand()  {
@@ -394,7 +380,6 @@ public class Game {
             return true;
         }
 
-
         //хелп
         command = cmdHelp;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
@@ -415,7 +400,6 @@ public class Game {
             surrender(focusPlayer);
             return true;
         }
-
 
         //пас
         command = cmdPass;
@@ -476,15 +460,14 @@ public class Game {
 
         //чит: распечатать все карты в шузе
         command = cmdShowDealerPoint;
-        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
+        if (strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             Color.printlnColor("очки дилера: " + dealer.getPoint(), Const.COLOR_HELP);
             return true;
         }
 
-
-                //чит: удалить карту у игрока
+        //чит: удалить карту у игрока
         command = cmdCardDel;
-        if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
+        if (strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             delCard(focusPlayer);
             return true;
         }
@@ -520,9 +503,9 @@ public class Game {
 
     //игрок сдался
     private void surrender(Player player) {
-        if(player.getCardLength()!= 2) {
+        if (player.getCardLength() != 2) {
             Color.printlnColor("Сдаться могут только игроки с двумя картами на руках. А вы нет.", Const.COLOR_HELP);
-            Util.sleepAnimationLn(Const.PAUSE , pauseState);
+            Util.sleepAnimationLn(Const.PAUSE, pauseState);
             return;
         }
         player.surrender();
@@ -574,9 +557,7 @@ public class Game {
         Util.printArr(pics);      // печатаем красивые картинки с картами
 
         Util.sleepAnimationLn((int)(Const.PAUSE * 1.5), pauseState);
-
     }
-
 
     private void openCardDealer() {
         if(dealer.isCardsOpen()) {
@@ -588,19 +569,16 @@ public class Game {
         card.setStateOpen(true);
         Util.printArr(card.getColorPictureCard());
         Util.sleepAnimationLn(Const.PAUSE, pauseState);
-
     }
-
 
     private void printStateGame() {
         System.out.println();
-
         printStateGameNames();    //имена
         printStateGameMoney();
         printStateGameBet();
         printStateGameMoneyWin();   //выигрыш
         printStateGamePoint();      //очки
-        printStateGameUnderline("---------------");     //подчеркивание
+        printStateGameUnderline("---------------");
         printStateGameCards();      //карты на руках играков
         System.out.println();
     }
@@ -678,10 +656,7 @@ public class Game {
             text += Util.formatedStrInvisChar(str[i]);
         }
         System.out.println(text);
-//        System.out.println();
     }
-
-
 
     //печать денег
     public void printStateGameMoney() {
@@ -746,31 +721,26 @@ public class Game {
         System.out.println(text);
     }
 
-
-    private boolean inputBet(Player player, String strBet) {
-
+    private void inputBet(Player player, String strBet) {
         double bet = Double.parseDouble(strBet);
         if(bet > player.getMoney()) {
             Color.printlnColor("у вас нет столько денег, попробуйте еще раз", Const.COLOR_HELP);
-            return false;
+            return;
         }
         if(bet < 1) {
             Color.printlnColor("вы не можете поставить такую ставку, попробуйте еще раз", Const.COLOR_HELP);
-            return false;
+            return;
         }
 
         //если все нормально- записываем ставку
         player.setBet(bet);
         nextFocus();
-        return true;
     }
-
 
     public void pauseSwitch() {
         pauseState = !pauseState;
         String str = (pauseState) ? "пауза включена" : "пауза отключена";
         Color.printlnColor(str, Const.COLOR_HELP);
-
     }
 
     //проверка игроков: проигравшие
@@ -804,7 +774,6 @@ public class Game {
             }
         }
     }
-
 
     //проверка выиграшей
     private void checkGameStatus() {
@@ -884,7 +853,6 @@ public class Game {
         return false;
     }
 
-
     //все игроки отыгрались?
     private boolean allPlayersOutGame() {
         for (Player player : players) {
@@ -905,7 +873,6 @@ public class Game {
         return false;
     }
 
-
     //у кого-то из игроков есть блэкджек и он еще в игре?
     private boolean needPlayersCheckBlackJack() {
         for (Player player : players) {
@@ -916,13 +883,11 @@ public class Game {
         return false;
     }
 
-
     private void playersReset() {
         for (Player player : players) {
             player.reset();
         }
     }
-
 
     //удалить игрока из массива
     private void delPlayer(Player player) {

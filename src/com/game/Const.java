@@ -12,7 +12,6 @@ public final class Const {
     public static final String COLOR_FOCUS = Color.ANSI_YELLOW;
     public static final String COLOR_ALARM = Color.ANSI_RED;
 
-
     //коеф. выигрышей
     public static final double COEF_WIN_BLACK_JACK = 1.5;        //у игрока блекджек, у дилера нет
     public static final double BASIC_COEF_WIN = 1;              //обычный выигрышный коеф.
@@ -24,9 +23,7 @@ public final class Const {
     public static final String TELL_PASS = "хватит";
     public static final String TELL_OPEN_CARD = "открываю карту";
 
-
     public static final String CMD_CHEAT_CARD_ADD = "add";
-
 
     public static final String FORMAT_PRINT = "%-30s";
 
@@ -43,12 +40,10 @@ public final class Const {
     public static final int BOOTS_MAX = 5;
     public static final int MAX_NAME_LENGTH = 14;
 
-
     //по умолчанию
     public static final int DEF_PLAYERS = 1;
     public static final int DEF_BOOTS = 0;
     public static final int DEF_SHOE = 6;
-
 
     //пауза в игре
     public static final int PAUSE = 2000;

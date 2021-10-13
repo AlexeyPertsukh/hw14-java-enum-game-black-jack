@@ -25,7 +25,6 @@ public class Card {
         this.rating = rating;
         this.suit = suit;
         this.isOpen = isVisible;
-
     }
 
     public int getPoint() {
@@ -78,7 +77,6 @@ public class Card {
         return pic;
     }
 
-
     public String[] getPictureCard() {
         String[] pic;
         if(isOpen) {
@@ -89,7 +87,6 @@ public class Card {
         }
 
         Util.changeCharInArr(pic, Picture.CHANGE_CHAR, suit.getPrimitivePicChar());
-
         return pic;
     }
 

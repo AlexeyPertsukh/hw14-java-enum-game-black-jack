@@ -9,17 +9,14 @@ import java.util.Scanner;
 public class Dealer extends Bot{
 
     public final static int POINT_ENOUGH = 17;    //очки, при которых дилер не берет карты (правила казино)
-
-
     public Dealer() {
-        super("Дилер", 10000000);
+        super("Дилер", 1000_000_000);
     }
-
 
     @Override
     public String nextCmd(Scanner sc) {
-        String cmd = "";
-        String tell = "";
+        String cmd;
+        String tell;
         if(!isCardsOpen()) {
             cmd = Command.CHEAT_DEALER_OPEN_CARD.getKey();
             tell = Const.TELL_OPEN_CARD;

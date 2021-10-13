@@ -18,7 +18,6 @@ public class Player {
 
     private boolean needCheck;
 
-
     public Player(String name, double money) {
         this.name = name;
         this.money = money;
@@ -52,8 +51,7 @@ public class Player {
     }
 
     public String nextCmd(Scanner sc) {
-        String cmd = sc.next();
-        return cmd;
+        return sc.next();
     }
 
     public String getName() {
@@ -95,8 +93,7 @@ public class Player {
 
 
     public boolean isInGame() {
-        boolean inGame = !(isLoose || isWin || isSurrender || isPush);
-        return inGame;
+        return  !(isLoose || isWin || isSurrender || isPush);
     }
 
     private void addMoney(double money) {
@@ -198,8 +195,6 @@ public class Player {
     public void cardsOpen() {
         storage.cardsOpen();
     }
-
-
 
     //удалить последнюю карту
     public boolean delCard() {

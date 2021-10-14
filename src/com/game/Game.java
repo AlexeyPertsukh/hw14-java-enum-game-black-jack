@@ -10,9 +10,9 @@ import com.card.Card;
 import com.card.CardRating;
 import com.card.CardSuit;
 import com.help.Help;
-import com.units.Bot;
-import com.units.Dealer;
-import com.units.Player;
+import com.unit.Bot;
+import com.unit.Dealer;
+import com.unit.Player;
 
 import java.util.Scanner;
 

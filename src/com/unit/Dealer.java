@@ -1,4 +1,4 @@
-package com.units;
+package com.unit;
 
 import com.game.Command;
 import com.game.Const;

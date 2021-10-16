@@ -224,7 +224,7 @@ public class Game {
 
     private void printOnStart() {
         System.out.println(Const.NAME_GAME + "  " + Const.VERSION);
-        Picture.printSmallGameLogo();
+        PictureStorage.printSmallGameLogo();
         System.out.println();
     }
 
@@ -239,10 +239,10 @@ public class Game {
     private void printHeader() {
 
         //готовим строку с текстом о доступных командах
-        String textLine = "";
-        for (Command tmp : commands) {
-            if(tmp.isVisible() && tmp.isActive()) {    //печатаем инфо о команда, только если она активная и видимая
-                textLine += tmp.info() + "   ";
+        StringBuilder textLine = new StringBuilder();
+        for (Command cmd : commands) {
+            if(cmd.isVisible() && cmd.isActive()) {    //печатаем инфо о команда, только если она активная и видимая
+                textLine.append(cmd.info()).append("   ");
             }
         }
         
@@ -354,19 +354,19 @@ public class Game {
     }
 
     //обработка команд
-    private boolean processCommand()  {
+    private void processCommand()  {
 
         //сложные составные команды
         //чит: добавить игроку карту определенного номинала
         if(addCard(focusPlayer, strCommand)) {
-            return true;
+            return;
         }
 
         //если ввод ставок
         if(step.isInputBet()) {
             if(Util.isDouble(strCommand)) {
                 inputBet(focusPlayer, strCommand);
-                return true;
+                return;
             }
         }
 
@@ -377,70 +377,70 @@ public class Game {
         command = cmdPause;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             pauseSwitch();
-            return true;
+            return;
         }
 
         //хелп
         command = cmdHelp;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             help.show();
-            return true;
+            return;
         }
 
         //взять карту
         command = cmdTakeCard;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             takeCards(focusPlayer, 1);
-            return true;
+            return;
         }
 
         //сдаться
         command = cmdSurrender;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             surrender(focusPlayer);
-            return true;
+            return;
         }
 
         //пас
         command = cmdPass;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             nextFocus();
-            return true;
+            return;
         }
 
         //досрочно взять выигрыш при блекджеке
         command = cmdTakeWin;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             takeWinBlackJack(focusPlayer);
-            return true;
+            return;
         }
 
         //переименовать игрока
         command = cmdRenamePlayer;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             renamePlayer(focusPlayer);
-            return true;
+            return;
         }
 
         //выйти из игры
         command = cmdGameOver;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             gameOver = true;
-            return true;
+            return;
         }
 
         //открыть скрытую карту дилера
         command = cmdDealerOpenCard;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive() && focusPlayer == dealer) {
             openCardDealer();
-            return true;
+            return;
         }
 
         // установить дилеру скрытый блекджек
         command = cmdDealerHiddenBlackJack;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             dealerHiddenBlackJack();
-            return true;
+            return;
         }
 
 
@@ -448,32 +448,31 @@ public class Game {
         command = cmdPrintAllCards;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             printAllCards();
-            return true;
+            return;
         }
 
         //чит: распечатать все карты в шузе
         command = cmdPrintShoe;
         if(strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             printShoe();
-            return true;
+            return;
         }
 
         //чит: распечатать все карты в шузе
         command = cmdShowDealerPoint;
         if (strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             Color.printlnColor("очки дилера: " + dealer.getPoint(), Const.COLOR_HELP);
-            return true;
+            return;
         }
 
         //чит: удалить карту у игрока
         command = cmdCardDel;
         if (strCommand.equalsIgnoreCase(command.getKey()) && command.isActive()) {
             delCard(focusPlayer);
-            return true;
+            return;
         }
         //если дошли сюда- команда не введена или введена с ошибкой, повторяем ввод
         Color.printlnColor("неправильная команда, повторите еще раз", Const.COLOR_HELP);
-        return false;
     }
 
     //разрешение для использования команд
@@ -498,7 +497,7 @@ public class Game {
 
         Color.printlnColor("Карты всех номиналов:", Const.COLOR_HELP);
 //        System.out.println("------------");
-        Picture.printAllCardPic();
+        PictureStorage.printAllCardPic();
     }
 
     //игрок сдался
@@ -585,32 +584,32 @@ public class Game {
 
     //подчеркивание
     public void printStateGameUnderline(String strUnderline) {
-        String text;
+        StringBuilder text;
         String[] str = new String[players.length];
-        text = "";
+        text = new StringBuilder();
         for (int i = 0; i < players.length; i++) {
             str[i] = strUnderline;
             if(players[i] == focusPlayer) {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }
 
     //имена
     public void printStateGameNames() {
-        String text;
+        StringBuilder text;
         String[] str = new String[players.length];
-        text = "";
+        text = new StringBuilder();
         for (int i = 0; i < players.length; i++) {
             str[i] = players[i].getName() + " " + players[i].getTextGameState();
             if(players[i] == focusPlayer) {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }
@@ -619,7 +618,7 @@ public class Game {
     public void printStateGameCards() {
         //карты на руках
         int max = 1;
-        String text;
+        StringBuilder text;
         String[] str = new String[players.length];
 
         for (Player tmp : players) {
@@ -628,7 +627,7 @@ public class Game {
             }
         }
         for (int n = 0; n < max; n++) {
-            text = "";
+            text = new StringBuilder();
             for (int i = 0; i < players.length; i++) {
 
                 str[i] = players[i].getCardInfoColor(n);
@@ -636,7 +635,7 @@ public class Game {
                     str[i] = "нет карт";
                 }
                 str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-                text += Util.formatedStrInvisChar(str[i]);
+                text.append(Util.formatedStrInvisChar(str[i]));
             }
             System.out.println(text);
         }
@@ -645,7 +644,7 @@ public class Game {
     //печать очков
     public void printStateGamePoint() {
         //Очки
-        String text = "";
+        StringBuilder text = new StringBuilder();
         String[] str = new String[players.length];
         for (int i = 0; i < players.length; i++) {
                 str[i] = "Очки:  " + players[i].getPointStr();
@@ -653,14 +652,14 @@ public class Game {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }
 
     //печать денег
     public void printStateGameMoney() {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         String[] str = new String[players.length];
         for (int i = 0; i < players.length; i++) {
 
@@ -674,14 +673,14 @@ public class Game {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }
 
     //печать ставки
     public void printStateGameBet() {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         String[] str = new String[players.length];
         for (int i = 0; i < players.length; i++) {
 
@@ -695,14 +694,14 @@ public class Game {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }
 
     //печать ставки
     public void printStateGameMoneyWin() {
-        String text = "";
+        StringBuilder text = new StringBuilder();
         String[] str = new String[players.length];
         for (int i = 0; i < players.length; i++) {
             str[i] = "-";
@@ -716,7 +715,7 @@ public class Game {
                 str[i] = Const.COLOR_FOCUS + str[i] + Color.ANSI_RESET;
             }
             str[i] = String.format(Const.FORMAT_PRINT, str[i]);
-            text += Util.formatedStrInvisChar(str[i]);
+            text.append(Util.formatedStrInvisChar(str[i]));
         }
         System.out.println(text);
     }

@@ -10,7 +10,7 @@ http://patorjk.com/software/taag/#p=display&f=Cards&t=Game%20Over
 https://www.asciiart.eu/miscellaneous/playing-cards
  */
 
-public class Picture {
+public class PictureStorage {
 
     public static final char CHANGE_CHAR = '$';
 
@@ -227,7 +227,7 @@ public class Picture {
     public static final String[][] CARDS = {BACK, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEEN, JACK, QUEEN, KING, ACE};
 
 
-    private Picture() {
+    private PictureStorage() {
     }
 
     public static void printAllCardPic() {

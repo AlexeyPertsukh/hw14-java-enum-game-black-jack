@@ -1,22 +1,22 @@
 package com.card;
 
-import com.game.Picture;
+import com.game.PictureStorage;
 import com.game.Util;
 
 public enum CardRating {
-    TWO("2", 2, Picture.TWO),
-    THREE("3", 3, Picture.THREE),
-    FOUR("4", 4, Picture.FOUR),
-    FIVE("5", 5, Picture.FIVE),
-    SIX("6", 6, Picture.SIX),
-    SEVEN("7", 7, Picture.SEVEN),
-    EIGHT("8", 8, Picture.EIGHT),
-    NINE("9", 9, Picture.NINE),
-    TEEN("10", 10, Picture.TEEN),
-    JACK("Валет", 10, Picture.JACK),
-    QUEEN("Дама", 10, Picture.QUEEN),
-    KING("Король", 10, Picture.KING),
-    ACE("Туз", 11, Picture.ACE);
+    TWO("2", 2, PictureStorage.TWO),
+    THREE("3", 3, PictureStorage.THREE),
+    FOUR("4", 4, PictureStorage.FOUR),
+    FIVE("5", 5, PictureStorage.FIVE),
+    SIX("6", 6, PictureStorage.SIX),
+    SEVEN("7", 7, PictureStorage.SEVEN),
+    EIGHT("8", 8, PictureStorage.EIGHT),
+    NINE("9", 9, PictureStorage.NINE),
+    TEEN("10", 10, PictureStorage.TEEN),
+    JACK("Валет", 10, PictureStorage.JACK),
+    QUEEN("Дама", 10, PictureStorage.QUEEN),
+    KING("Король", 10, PictureStorage.KING),
+    ACE("Туз", 11, PictureStorage.ACE);
 
     private final String nameRus;
     private final int point;

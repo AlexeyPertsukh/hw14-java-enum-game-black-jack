@@ -91,7 +91,6 @@ public class Player {
         return moneyWin;
     }
 
-
     public boolean isInGame() {
         return  !(isLoose || isWin || isSurrender || isPush);
     }
@@ -108,7 +107,6 @@ public class Player {
         isLoose = false;
         isSurrender = false;
     }
-
 
     //выиграл
     public void gameWin(double coefficientWin) {
@@ -172,8 +170,6 @@ public class Player {
         }
         return str;
     }
-
-
 
     public String[] getPictureCard(int num) {
         return storage.getPictureCard(num);

@@ -4,7 +4,7 @@ https://ru.wikipedia.org/wiki/%D0%98%D0%B3%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D
  */
 
 import com.game.Color;
-import com.game.Picture;
+import com.game.PictureStorage;
 import com.game.Util;
 
 public class Card {
@@ -83,10 +83,10 @@ public class Card {
             pic = rating.getPicture().clone();
         }
         else {
-            pic = Picture.BACK.clone();
+            pic = PictureStorage.BACK.clone();
         }
 
-        Util.changeCharInArr(pic, Picture.CHANGE_CHAR, suit.getPrimitivePicChar());
+        Util.changeCharInArr(pic, PictureStorage.CHANGE_CHAR, suit.getPrimitivePicChar());
         return pic;
     }
 
